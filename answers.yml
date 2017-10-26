@@ -1,0 +1,9 @@
+latest: &id1
+  default:
+    self:
+      service:
+        metadata:
+          fcgi_pass: fpm:9000
+          root: /var/www/html/web
+          index: index.php index.html
+'2015-12-19': *id1

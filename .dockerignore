@@ -1,0 +1,12 @@
+.git
+.gitignore
+.idea
+*.sql
+LICENSE
+README.md
+answers.yml
+build.sh
+docker-compose*
+cms
+static
+patch

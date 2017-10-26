@@ -1,0 +1,7 @@
+.idea
+.DS_Store
+*.swp
+app/sync/*
+**/node_modules
+**/npm-debug.log
+app/modules/demo_block/js/*
