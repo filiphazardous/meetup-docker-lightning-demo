@@ -1,0 +1,44 @@
+version: '2'
+
+services:
+  web:
+    labels:
+      map-public-http: '8080'
+
+    environment:
+      VIRTUAL_HOST: test.docker
+      VIRTUAL_PORT: 8080
+      USE_DNSMASQ: 1
+
+  web-conf:
+    volumes:
+      - ./answers.yml:/answers.yml
+
+  drupal:
+    links:
+      - maildev
+
+    volumes:
+      - ./app/sync:/var/www/html/web/sites/default/sync
+
+    environment:
+      TERM: ${TERM}
+      DB_HOST: database
+      DB_NAME: drupal
+      DB_USER: drupal
+      DB_PASSWORD: drupal
+
+  database:
+    environment:
+      TERM: ${TERM}
+      MYSQL_USER: drupal
+      MYSQL_PASSWORD: drupal
+      MYSQL_DATABASE: drupal
+
+  maildev:
+    image: weahead/maildev:0.14.0
+
+    environment:
+      NODE_ENV: production
+      VIRTUAL_HOST: maildev.test.docker
+      VIRTUAL_PORT: 3000

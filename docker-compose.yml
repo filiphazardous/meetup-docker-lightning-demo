@@ -1,0 +1,41 @@
+version: '2'
+
+services:
+
+  web:
+      image: weahead/nginx:1.11.3
+      links:
+        - drupal:fpm
+      volumes_from:
+        - web-conf
+        - drupal
+
+  web-conf:
+    image: weahead/nginx-conf:latest
+
+  drupal:
+    build: .
+    image: weahead/drupal-test:dev
+
+    volumes:
+      - ./app/libraries:/var/www/html/web/libraries:ro
+      - ./app/modules:/var/www/html/web/modules/custom
+      - ./app/themes:/var/www/html/web/themes/custorm:ro
+      - test-uploads:/var/www/htmwl/web/sites/default/files
+    links:
+      - database:database
+
+  database:
+    image: mariadb:10.2.8
+
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+
+    volumes:
+      - test-dbdata:/var/lib/mysql
+
+volumes:
+  test-dbdata:
+    driver: local
+  test-uploads:
+    driver: local

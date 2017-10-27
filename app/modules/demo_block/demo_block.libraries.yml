@@ -1,0 +1,4 @@
+demo-block-js:
+  version: VERSION
+  js:
+    js/demo_block.js: {}

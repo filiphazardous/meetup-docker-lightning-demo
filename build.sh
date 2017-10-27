@@ -1,2 +1,2 @@
 #!/bin/sh
-docker build -t weahead/drupal-demo:dev .
+docker build -t weahead/drupal-test:dev .
